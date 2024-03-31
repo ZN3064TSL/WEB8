@@ -1,15 +1,17 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
 
-@app.route('/')
+
 @app.route('/index')
 def workpiece():
     return render_template('base.html', title='Заготовка')
 
+
 @app.route('/training/<prof>')
 def training(prof):
     return render_template('training.html', prof=prof)
+
 
 @app.route('/list_prof/<list>')
 def list_prof(list):
@@ -30,6 +32,20 @@ def list_prof(list):
              'Штурман',
              'Пилот дронов']
     return render_template('list_prof.html', list=list, profs=profs)
+
+@app.route('/')
+@app.route('/answer')
+@app.route('/auto_answer')
+def answer():
+    form = {'title': 'Анкета',
+            'surname': 'Watny',
+            'name': 'Mark',
+            'education': 'Выше среднего',
+            'profession': 'Штурман марсохода',
+            'sex': 'Male',
+            'motivation': 'Всегда мечтал застрять на Марсе!',
+            'ready': True}
+    return render_template('answer.html', **form, css=url_for('static', filename='answer.css'))
 
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
