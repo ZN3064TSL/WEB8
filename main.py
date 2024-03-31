@@ -10,7 +10,12 @@ def workpiece():
 
 @app.route('/training/<prof>')
 def training(prof):
-    return render_template('training.html', prof=prof)
+    params = {
+        'space_ship1': url_for('static', filename='space_ship1.jpeg'),
+        'space_ship2': url_for('static', filename='space_ship2.jpeg'),
+        'prof': prof
+    }
+    return render_template('training.html', **params)
 
 
 @app.route('/list_prof/<list>')
